@@ -20,7 +20,11 @@ connectionRef.on("open", () => {
 
 const booksRoutes = require("./routes/books");
 app.use("/api/books", booksRoutes);
+const memberRoutes = require("./routes/member");
+app.use("/api/member", memberRoutes);
 
 app.listen(4099, () => {
   console.log("listening to port", 4099);
+  
 });
+
