@@ -40,9 +40,10 @@ exports.editBookById = async (req, res) => {
     const book = await Book.findById(id);
     book.title = req.body.title;
     book.author = req.body.author;
-    const savedBook = book.save();
+    const savedBook = await book.save();
     res.json({
       message: "edit Successful",
+      savedBook: savedBook,
     });
   } catch (err) {
     res.json({
@@ -61,6 +62,20 @@ exports.findBookById = async (req, res) => {
   } catch (err) {
     res.status(400).json({
       message: "An error occured",
+      error: err,
+    });
+  }
+};
+
+exports.deleteBookById = async (req, res) => {
+  const id = req.params.id;
+  try {
+    const deleteBook = await Book.findByIdAndDelete(id);
+    res.json({
+      message: "delete successful",
+    });
+  } catch (err) {
+    res.json({
       error: err,
     });
   }
