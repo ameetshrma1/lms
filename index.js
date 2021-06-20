@@ -23,6 +23,9 @@ app.use("/api/books", booksRoutes);
 const memberRoutes = require("./routes/member");
 app.use("/api/member", memberRoutes);
 
+const userRoutes = require("./routes/users");
+app.use("/api/user", userRoutes);
+
 app.listen(4099, () => {
   console.log("listening to port", 4099);
   
