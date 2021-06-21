@@ -11,7 +11,7 @@ app.use(cors());
 
 const dbURl = "mongodb://localhost/fourpm";
 
-mongoose.connect(dbURl, { useNewUrlParser: true });
+mongoose.connect(dbURl, { useNewUrlParser: true, useUnifiedTopology: true });
 
 const connectionRef = mongoose.connection;
 connectionRef.on("open", () => {
@@ -28,6 +28,4 @@ app.use("/api/user", userRoutes);
 
 app.listen(4099, () => {
   console.log("listening to port", 4099);
-  
 });
-

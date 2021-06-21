@@ -1,12 +1,15 @@
 const express = require("express");
 const User = require("../models/user");
+const bcryptjs = require("bcryptjs");
 const router = express.Router();
 
 router.post("/register", async (req, res) => {
   const { email, password, fullName } = req.body;
+  const hashedPassword = bcryptjs.hashSync(password, bcryptjs.genSaltSync(15));
+
   const user = new User({
     email,
-    password,
+    password: hashedPassword,
     fullName,
   });
   try {
@@ -26,7 +29,8 @@ router.post("/login", async (req, res) => {
   const { email, password } = req.body;
   try {
     const user = await User.findOne({ email });
-    if (user.password === password) {
+    const checkPassword = bcryptjs.compareSync(password, user.password);
+    if (checkPassword) {
       res.json({
         message: "validation Successfull! User login done!",
       });
