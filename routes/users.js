@@ -2,6 +2,7 @@ const express = require("express");
 const User = require("../models/user");
 const bcryptjs = require("bcryptjs");
 const router = express.Router();
+const jwt = require("jsonwebtoken");
 
 router.post("/register", async (req, res) => {
   const { email, password, fullName } = req.body;
@@ -30,6 +31,17 @@ router.post("/login", async (req, res) => {
   try {
     const user = await User.findOne({ email });
     const checkPassword = bcryptjs.compareSync(password, user.password);
+    // const token = jwt.sign(
+    //   { _id: user._id },
+    //   "this1is2a3long4secreat5key6for7jwt8auth9"
+    // );
+    // console.log(token);
+    // const decoded = jwt.verify(
+    //   token,
+    //   "this1is2a3long4secreat5key6for7jwt8auth9"
+    // );
+    console.log(decoded);
+
     if (checkPassword) {
       res.json({
         message: "validation Successfull! User login done!",

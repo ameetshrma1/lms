@@ -26,6 +26,9 @@ app.use("/api/member", memberRoutes);
 const userRoutes = require("./routes/users");
 app.use("/api/user", userRoutes);
 
+const genreRoutes = require("./routes/genre");
+app.use("/api/genre", genreRoutes);
+
 app.listen(4099, () => {
   console.log("listening to port", 4099);
 });
