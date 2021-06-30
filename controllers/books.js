@@ -3,7 +3,7 @@ const Book = require("../models/book");
 
 exports.getAllBooks = async (req, res) => {
   try {
-    const allBooks = await Book.find();
+    const allBooks = await Book.find().populate("category");
     res.send({
       data: allBooks,
     });
@@ -19,6 +19,7 @@ exports.addBook = async (req, res) => {
   const book = new Book({
     title: req.body.title,
     author: req.body.author,
+    category: req.body.category,
   });
 
   try {
@@ -40,6 +41,7 @@ exports.editBookById = async (req, res) => {
     const book = await Book.findById(id);
     book.title = req.body.title;
     book.author = req.body.author;
+    book.category = req.body.category;
     const savedBook = await book.save();
     res.json({
       message: "edit Successful",

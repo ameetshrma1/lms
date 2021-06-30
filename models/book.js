@@ -9,6 +9,15 @@ const bookSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  category: {
+    required: true,
+    type: mongoose.Schema.ObjectId,
+    ref: "Genre",
+  },
+  status: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 module.exports = mongoose.model("book", bookSchema);

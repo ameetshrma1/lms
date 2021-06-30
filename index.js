@@ -29,6 +29,9 @@ app.use("/api/user", userRoutes);
 const genreRoutes = require("./routes/genre");
 app.use("/api/genre", genreRoutes);
 
+const historyRoutes = require("./routes/history");
+app.use("/api/history", historyRoutes);
+
 app.listen(4099, () => {
   console.log("listening to port", 4099);
 });
