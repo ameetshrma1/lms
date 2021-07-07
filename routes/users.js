@@ -31,20 +31,14 @@ router.post("/login", async (req, res) => {
   try {
     const user = await User.findOne({ email });
     const checkPassword = bcryptjs.compareSync(password, user.password);
-    // const token = jwt.sign(
-    //   { _id: user._id },
-    //   "this1is2a3long4secreat5key6for7jwt8auth9"
-    // );
-    // console.log(token);
-    // const decoded = jwt.verify(
-    //   token,
-    //   "this1is2a3long4secreat5key6for7jwt8auth9"
-    // );
-    console.log(decoded);
 
     if (checkPassword) {
+      var token = jwt.sign({ id: user._id }, "SECRET KEY", {
+        expiresIn: 6 * 60 * 60, //in seconds
+      });
       res.json({
         message: "validation Successfull! User login done!",
+        token,
       });
     } else {
       res.json({

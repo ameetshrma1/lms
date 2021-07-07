@@ -6,17 +6,18 @@ const {
   editMemberById,
   deleteMemberById,
 } = require("../controllers/member");
+const { verifyUserToken } = require("../middlewares/verifyUserToken");
 
 const router = express.Router();
 
-router.post("/", addMember);
+router.post("/", verifyUserToken, addMember);
 
-router.get("/", getAllMember);
+router.get("/", verifyUserToken, getAllMember);
 
-router.patch("/:id", editMemberById);
+router.patch("/:id", verifyUserToken, editMemberById);
 
-router.get("/:id", getMemberById);
+router.get("/:id", verifyUserToken, getMemberById);
 
-router.delete("/:id", deleteMemberById);
+router.delete("/:id", verifyUserToken, deleteMemberById);
 
 module.exports = router;

@@ -9,12 +9,13 @@ const {
   editGenre,
   deleteGenre,
 } = require("../controllers/genre");
+const { verifyUserToken } = require("../middlewares/verifyUserToken");
 
 router.get("/", getAllGenre);
 
 router.get("/:id", getGenreById);
 
-router.post("/", addGenre);
+router.post("/", verifyUserToken, addGenre);
 
 router.patch("/:id", editGenre);
 
