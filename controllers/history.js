@@ -3,15 +3,17 @@ const Book = require("../models/book");
 
 exports.saveHistory = async (req, res) => {
   const { book, member, type } = req.body;
+  bookId = String(book)
+
 
   try {
-    const book = await Book.findById(book);
+    const book = await Book.findById(bookId);
     console.log(book);
     if (type == "Borrow") {
       if (book.status == true) {
         const history = new History({ member, book, type });
         const savedHistory = await history.save();
-        book.status == false;
+        book.status = false;
         const savedBook = await book.save();
         res.json({
           message: "History Saved",
