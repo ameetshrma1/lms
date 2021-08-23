@@ -4,7 +4,7 @@ const Book = require("../models/book");
 exports.getAllBooks = async (req, res) => {
   try {
     const allBooks = await Book.find().populate("category");
-    res.send({
+    res.json({
       data: allBooks,
     });
   } catch (err) {
@@ -15,7 +15,6 @@ exports.getAllBooks = async (req, res) => {
 };
 
 exports.addBook = async (req, res) => {
-  console.log(req.body);
   const book = new Book({
     title: req.body.title,
     author: req.body.author,
@@ -26,7 +25,6 @@ exports.addBook = async (req, res) => {
     const savedBook = await book.save();
     res.json({
       message: "book saved",
-      data: savedBook,
     });
   } catch (err) {
     res.json({

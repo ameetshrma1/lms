@@ -3,12 +3,10 @@ const Book = require("../models/book");
 
 exports.saveHistory = async (req, res) => {
   const { book, member, type } = req.body;
-  bookId = String(book)
-
+  bookId = String(book);
 
   try {
     const book = await Book.findById(bookId);
-    console.log(book);
     if (type == "Borrow") {
       if (book.status == true) {
         const history = new History({ member, book, type });
@@ -48,27 +46,22 @@ exports.saveHistory = async (req, res) => {
     });
   }
 };
-exports.getAllHistories = async(req, res) => {
+exports.getAllHistories = async (req, res) => {
   try {
-    const allHistories = await History.find()
+    const allHistories = await History.find();
     res.status(200).json({
-      data: allHistories
-    })
-  } catch (err) {
-    
-  }
-}
+      data: allHistories,
+    });
+  } catch (err) {}
+};
 
-exports.getSingleHistory = async(req, res) => {
+exports.getSingleHistory = async (req, res) => {
   const id = req.params.id;
-  console.log(id)
   try {
-    const history = await History.findById(id)
-    console.log(history)
+    const history = await History.findById(id);
+    console.log(history);
     res.status(200).json({
-      data: history
-    })
-  } catch (err) {
-    
-  }
-}
+      data: history,
+    });
+  } catch (err) {}
+};

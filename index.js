@@ -1,4 +1,3 @@
-const { json } = require("express");
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
@@ -11,7 +10,11 @@ app.use(cors());
 
 const dbURl = "mongodb://localhost/fourpm";
 
-mongoose.connect(dbURl, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(dbURl, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useCreateIndex: true,
+});
 
 const connectionRef = mongoose.connection;
 connectionRef.on("open", () => {
@@ -32,6 +35,6 @@ app.use("/api/genre", genreRoutes);
 const historyRoutes = require("./routes/history");
 app.use("/api/history", historyRoutes);
 
-app.listen(4099, () => {
-  console.log("listening to port", 4099);
+app.listen(5000, () => {
+  console.log("listening to port", 5000);
 });
