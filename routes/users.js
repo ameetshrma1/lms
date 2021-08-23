@@ -3,6 +3,10 @@ const User = require("../models/user");
 const bcryptjs = require("bcryptjs");
 const router = express.Router();
 const jwt = require("jsonwebtoken");
+const {validateEmailPassword } = require("../middlewares/validateEmailPassword");
+
+const {check} = require('express-validator');
+
 
 router.post("/register", async (req, res) => {
   const { email, password, fullName } = req.body;
@@ -26,7 +30,10 @@ router.post("/register", async (req, res) => {
   }
 });
 
-router.post("/login", async (req, res) => {
+router.post("/login", [
+  check('email').isEmail().withMessage('Enter a valid email address'),
+  check('password').isLength({ min: 5 }).not().isEmpty(),
+],  validateEmailPassword, async (req, res) => {
   const { email, password } = req.body;
   try {
     const user = await User.findOne({ email });
@@ -42,7 +49,7 @@ router.post("/login", async (req, res) => {
       });
     } else {
       res.json({
-        message: "Passwords dont match!",
+        message: "Username and Passwords dont match!",
       });
     }
   } catch (err) {
@@ -51,5 +58,18 @@ router.post("/login", async (req, res) => {
     });
   }
 });
+
+router.get('/', async (req, res) => {
+  try {
+    const allUser = await User.find()
+    res.json({
+      data: allUser[0],
+    });
+  } catch (err) {
+    res.json({
+      error: err,
+    });
+  }
+})
 
 module.exports = router;

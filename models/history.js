@@ -10,13 +10,13 @@ const historySchema = new mongoose.Schema(
     member: {
       required: true,
       type: mongoose.Schema.ObjectId,
-      ref: "Member",
+      ref: "member",
     },
     type: {
       required: true,
       type: String,
       default: "Borrow",
-    },
+    }
   },
   { timestamps: true }
 );

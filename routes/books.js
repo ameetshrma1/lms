@@ -8,16 +8,18 @@ const {
   deleteBookById,
 } = require("../controllers/books");
 
+const {verifyUserToken} = require('../middlewares/verifyUserToken')
+
 const router = express.Router();
 
-router.post("/", addBook);
+router.post("/", verifyUserToken, addBook);
 
-router.get("/", getAllBooks);
+router.get("/",verifyUserToken, getAllBooks);
 
-router.patch("/:id", editBookById);
+router.patch("/:id", verifyUserToken, editBookById);
 
-router.get("/:id", findBookById);
+router.get("/:id",verifyUserToken, findBookById);
 
-router.delete("/:id", deleteBookById);
+router.delete("/:id",verifyUserToken, deleteBookById);
 
 module.exports = router;

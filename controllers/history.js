@@ -30,7 +30,7 @@ exports.saveHistory = async (req, res) => {
       if (book.status == false) {
         const history = new History({ member, book, type });
         const savedHistory = await history.save();
-        book.status == true;
+        book.status = true;
         const savedBook = await book.save();
         res.json({
           message: "History Saved",
@@ -48,3 +48,27 @@ exports.saveHistory = async (req, res) => {
     });
   }
 };
+exports.getAllHistories = async(req, res) => {
+  try {
+    const allHistories = await History.find()
+    res.status(200).json({
+      data: allHistories
+    })
+  } catch (err) {
+    
+  }
+}
+
+exports.getSingleHistory = async(req, res) => {
+  const id = req.params.id;
+  console.log(id)
+  try {
+    const history = await History.findById(id)
+    console.log(history)
+    res.status(200).json({
+      data: history
+    })
+  } catch (err) {
+    
+  }
+}
